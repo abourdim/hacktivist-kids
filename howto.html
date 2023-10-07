@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HACKTIVIST KIDS — How-To, FAQ &amp; Code Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--bg:#0a0a0a;--green:#00ff41;--green-dim:#00aa2a;--green-glow:rgba(0,255,65,.15);--cyan:#00ffff;--red:#ff0033;--muted:#3a5a3a;--border:rgba(0,255,65,.12);--font-mono:'Share Tech Mono','Courier New',monospace;--font-title:'Orbitron','Share Tech Mono',monospace;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{min-height:100vh;background:var(--bg);color:var(--green);font-family:var(--font-mono);font-size:14px;line-height:1.7;padding:20px;}
+    ::selection{background:var(--green);color:var(--bg);}
+    ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--green-dim);}
+    .container{max-width:860px;margin:0 auto;}
+    .doc-header{text-align:center;padding:40px 0 30px;border-bottom:1px solid var(--border);margin-bottom:30px;}
+    .doc-title{font-family:var(--font-title);font-size:clamp(1.4rem,4vw,2.2rem);letter-spacing:.1em;color:var(--green);text-shadow:0 0 15px var(--green-glow);margin-bottom:8px;}
+    .doc-subtitle{font-size:12px;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;}
+    .doc-version{font-size:10px;color:var(--muted);margin-top:8px;}
+    .doc-nav{border:1px solid var(--border);background:rgba(0,255,65,.02);padding:16px;margin-bottom:30px;}
+    .doc-nav-title{font-family:var(--font-title);font-size:12px;letter-spacing:.1em;color:var(--green);margin-bottom:10px;}
+    .doc-nav a{display:block;color:var(--green-dim);text-decoration:none;font-size:12px;padding:3px 0 3px 16px;border-left:1px solid var(--border);transition:all .2s;}
+    .doc-nav a:hover{color:var(--green);border-left-color:var(--green);text-shadow:0 0 6px var(--green-glow);}
+    .doc-nav .nav-group{color:var(--cyan);font-family:var(--font-title);font-size:10px;letter-spacing:.1em;margin-top:8px;margin-bottom:4px;padding-left:16px;}
+    .doc-section{margin-bottom:40px;}
+    .section-title{font-family:var(--font-title);font-size:16px;letter-spacing:.08em;color:var(--green);text-shadow:0 0 8px var(--green-glow);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+    .section-title .prompt{color:var(--cyan);margin-right:8px;}
+    h3{font-family:var(--font-title);font-size:13px;color:var(--green);letter-spacing:.06em;margin:20px 0 8px;}
+    h4{font-size:12px;color:var(--cyan);margin:16px 0 6px;}
+    p{margin-bottom:12px;color:var(--green);font-size:13px;}
+    .dim{color:var(--muted);}
+    .code{background:rgba(0,255,65,.03);border:1px solid var(--border);padding:12px 16px;font-size:11px;margin:10px 0 16px;color:var(--green);overflow-x:auto;line-height:1.6;white-space:pre-wrap;tab-size:2;}
+    .code .comment{color:var(--muted);}
+    .code .kw{color:var(--cyan);}
+    .code .str{color:#fbbf24;}
+    .code .fn{color:#bc13fe;}
+    kbd{background:rgba(0,255,65,.08);border:1px solid var(--green-dim);color:var(--green);padding:1px 6px;font-size:11px;border-radius:2px;font-family:var(--font-mono);}
+    .faq-item{border:1px solid var(--border);margin-bottom:8px;}
+    .faq-q{padding:12px 14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .2s;font-size:13px;}
+    .faq-q:hover{background:rgba(0,255,65,.03);}
+    .faq-q .arrow{color:var(--green);transition:transform .2s;font-size:12px;}
+    .faq-q.open .arrow{transform:rotate(90deg);}
+    .faq-a{display:none;padding:12px 14px;border-top:1px solid var(--border);font-size:12px;color:var(--green-dim);line-height:1.7;}
+    .faq-a.open{display:block;}
+    table{width:100%;border-collapse:collapse;margin:12px 0 20px;font-size:12px;}
+    th{text-align:left;padding:8px 10px;border-bottom:2px solid var(--green-dim);color:var(--green);font-family:var(--font-title);font-size:11px;letter-spacing:.08em;}
+    td{padding:6px 10px;border-bottom:1px solid var(--border);color:var(--green-dim);}
+    tr:hover td{background:rgba(0,255,65,.02);}
+    .tip{border-left:3px solid var(--cyan);background:rgba(0,255,255,.03);padding:10px 14px;margin:12px 0;font-size:12px;}
+    .tip-label{color:var(--cyan);font-family:var(--font-title);font-size:10px;letter-spacing:.1em;margin-bottom:4px;}
+    .warning{border-left-color:var(--red);background:rgba(255,0,51,.03);}
+    .warning .tip-label{color:var(--red);}
+    .back-link{display:inline-block;margin-top:30px;padding:8px 16px;border:1px solid var(--green-dim);color:var(--green);text-decoration:none;font-size:12px;letter-spacing:.08em;transition:all .2s;}
+    .back-link:hover{background:rgba(0,255,65,.06);box-shadow:0 0 12px var(--green-glow);}
+    .doc-footer{text-align:center;padding:30px 0 20px;border-top:1px solid var(--border);margin-top:40px;font-size:11px;color:var(--muted);}
+    .diagram{background:rgba(0,255,65,.02);border:1px solid var(--border);padding:14px;margin:12px 0;font-size:11px;white-space:pre;line-height:1.4;overflow-x:auto;}
+    @media(max-width:600px){body{padding:12px;}.doc-title{font-size:1.2rem;}.code{font-size:10px;}}
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="doc-header">
+    <div class="doc-title">HACKTIVIST KIDS</div>
+    <div class="doc-subtitle">How-To Guide &bull; Code Explained &bull; FAQ</div>
+    <div class="doc-version">v2.0 ULTRA — A Workshop DIY Project</div>
+  </div>
+
+  <!-- NAV -->
+  <div class="doc-nav">
+    <div class="doc-nav-title">&gt; TABLE_OF_CONTENTS</div>
+    <div class="nav-group">GETTING STARTED</div>
+    <a href="#start">01 — Quick Start &amp; Password</a>
+    <a href="#features">02 — All 61 Features</a>
+    <a href="#demo">03 — Demo Mode</a>
+    <div class="nav-group">HOW THE CODE WORKS</div>
+    <a href="#architecture">04 — Architecture &amp; Boot Flow</a>
+    <a href="#patterns">05 — Core Code Patterns</a>
+    <a href="#svg-masks">06 — SVG Mask System</a>
+    <a href="#themes">07 — CSS Theme System</a>
+    <a href="#webaudio">08 — Web Audio API (Sounds)</a>
+    <a href="#canvas">09 — Canvas API (Visual Effects)</a>
+    <a href="#crypto-code">10 — Cryptography Algorithms</a>
+    <a href="#storage">11 — localStorage Persistence</a>
+    <a href="#events">12 — Event-Driven Architecture</a>
+    <a href="#i18n">13 — Internationalization &amp; RTL</a>
+    <a href="#xp">14 — XP &amp; Achievement System</a>
+    <a href="#exploits">15 — Fullscreen Exploit System</a>
+    <a href="#demo-code">16 — How Demo Mode Works</a>
+    <a href="#webcam">17 — Camera &amp; Mic (getUserMedia)</a>
+    <a href="#stego-code">18 — Steganography Deep Dive</a>
+    <div class="nav-group">REFERENCE</div>
+    <a href="#libs">19 — Libraries &amp; APIs Used</a>
+    <a href="#faq">20 — FAQ (15 Questions)</a>
+    <a href="#troubleshooting">21 — Troubleshooting</a>
+    <a href="#parents">22 — For Parents &amp; Educators</a>
+  </div>
+
+  <!-- 01 START -->
+  <div class="doc-section" id="start">
+    <div class="section-title"><span class="prompt">&gt;</span> 01 — QUICK START &amp; PASSWORD</div>
+    <p>Download all files into one folder. Open <kbd>index.html</kbd> in Chrome, Firefox, Safari, or Edge. That's it — no server, no install, no internet required (after fonts load).</p>
+    <h3>The Password</h3>
+    <div class="code"><span class="comment">// The password is always:</span>
+<span class="str">anony</span>  <span class="comment">// 5 letters, lowercase</span>
+
+<span class="comment">// After 3 wrong attempts, a bigger hint appears</span>
+<span class="comment">// The password screen uses typewriter effect (async/await)</span></div>
+    <div class="tip"><div class="tip-label">PRO TIP</div>Run the DEMO MODE from the sidebar to see every feature automatically. Takes ~4 minutes.</div>
+  </div>
+
+  <!-- 02 FEATURES -->
+  <div class="doc-section" id="features">
+    <div class="section-title"><span class="prompt">&gt;</span> 02 — ALL 61 FEATURES</div>
+    <table>
+      <tr><th>Category</th><th>Features</th><th>Count</th></tr>
+      <tr><td>Core Experience</td><td>Splash, password, boot, 20 masks, 90 slogans, forge</td><td>6</td></tr>
+      <tr><td>Themes</td><td>Terminal, Neon Ops, Red Team, Light, Custom Builder</td><td>5</td></tr>
+      <tr><td>Interactive Sections</td><td>OPS, Exploits, Payload, Signals, Crypto, Terminal, Net Scanner, File Encrypt, Stego, IP, Password Test, ASCII Art</td><td>12</td></tr>
+      <tr><td>Social &amp; Sharing</td><td>QR Forge, Agent Badge, Share Exploit, Dead Drop, Wanted Poster, Agent Chat</td><td>6</td></tr>
+      <tr><td>Fullscreen Exploits</td><td>BSOD, Matrix, Fake Hack, Virus, Glitch TV, Anon Msg, Webcam, Countdown, Takeover, Boot Virus, Ransomware, Sys32 Delete, Screen Crack</td><td>13</td></tr>
+      <tr><td>Immersive Screens</td><td>CCTV 4-cam, Drone Sim, Face Glitch, Satellite, Fake Desktop</td><td>5</td></tr>
+      <tr><td>Atmosphere</td><td>Matrix rain BG, typing sounds, heartbeat, glitch transitions, news ticker</td><td>5</td></tr>
+      <tr><td>Gamification</td><td>Agent Profile, 7 ranks, 20 achievements, Prank Battle, Dead Man's Switch</td><td>5</td></tr>
+      <tr><td>Meta</td><td>Konami Code, 3 languages + RTL, Ambient Mode, Demo Mode</td><td>4</td></tr>
+    </table>
+    <p class="dim">Total: 61 distinct features in 341KB.</p>
+  </div>
+
+  <!-- 03 DEMO -->
+  <div class="doc-section" id="demo">
+    <div class="section-title"><span class="prompt">&gt;</span> 03 — DEMO MODE</div>
+    <p>Open sidebar → scroll to DEMO_MODE → click ▶ RUN DEMO. A persistent top banner shows the current feature, description, and progress counter.</p>
+    <p>The demo walks through <strong>39 steps</strong> automatically: masks, themes, languages, every section, every exploit, terminal commands, crypto demos, chat, and more. Takes ~4 minutes.</p>
+    <p>Click ■ ABORT anytime. All overlays clean up automatically.</p>
+  </div>
+
+  <!-- 04 ARCHITECTURE -->
+  <div class="doc-section" id="architecture">
+    <div class="section-title"><span class="prompt">&gt;</span> 04 — ARCHITECTURE &amp; BOOT FLOW</div>
+    <p>The app is one HTML page with progressive enhancement. JavaScript handles all interactivity.</p>
+    <div class="diagram">runSplashScreen()        ← SVG logo animation (3.5s)
+    ↓
+runPasswordScreen()      ← Typewriter text + password input
+    ↓                       (password = "anony")
+runBootSequence()        ← Fake hacker boot text
+    ↓
+initApp()                ← Calls 53 setup functions
+    ↓
+User interacts           ← 124 event listeners respond</div>
+    <h3>initApp() — The Brain</h3>
+    <p>This single function wires up the entire application:</p>
+    <div class="code"><span class="kw">function</span> <span class="fn">initApp</span>() {
+  setupSidebar();       <span class="comment">// Sidebar toggle</span>
+  setupForge();         <span class="comment">// Slogan creator</span>
+  setupTheme();         <span class="comment">// 4 themes</span>
+  setupLanguage();      <span class="comment">// EN/FR/AR</span>
+  setupOps();           <span class="comment">// Prank missions</span>
+  setupExploits();      <span class="comment">// Screen exploits</span>
+  setupPayload();       <span class="comment">// Prank spinner</span>
+  setupSignals();       <span class="comment">// Sound effects</span>
+  setupCrypto();        <span class="comment">// Ciphers</span>
+  setupAgent();         <span class="comment">// XP system</span>
+  setupTerminal();      <span class="comment">// Fake CLI</span>
+  setupNetworkScan();   <span class="comment">// Fake network scan</span>
+  setupEncryptor();     <span class="comment">// File encrypt</span>
+  setupManifesto();     <span class="comment">// Broadcast</span>
+  setupKonami();        <span class="comment">// Easter egg</span>
+  setupBgRain();        <span class="comment">// Matrix background</span>
+  setupTypingSounds();  <span class="comment">// Keyboard clacks</span>
+  setupHeartbeat();     <span class="comment">// Bass pulse</span>
+  <span class="comment">// ... 35 more setup calls</span>
+  setupDemo();          <span class="comment">// Demo mode</span>
+  startRotation();      <span class="comment">// Begin slogan cycling</span>
+}</div>
+    <p class="dim">Every setup function follows the same pattern: get DOM elements → add event listeners → connect to XP system.</p>
+  </div>
+
+  <!-- 05 PATTERNS -->
+  <div class="doc-section" id="patterns">
+    <div class="section-title"><span class="prompt">&gt;</span> 05 — CORE CODE PATTERNS</div>
+
+    <h3>The $() Shorthand</h3>
+    <div class="code"><span class="comment">// Instead of writing this every time:</span>
+<span class="kw">document</span>.getElementById(<span class="str">'myButton'</span>)
+
+<span class="comment">// We write this:</span>
+<span class="kw">function</span> <span class="fn">$</span>(id) { <span class="kw">return</span> document.getElementById(id); }
+$(<span class="str">'myButton'</span>)  <span class="comment">// Same thing, much shorter</span></div>
+
+    <h3>The sleep() Utility</h3>
+    <div class="code"><span class="comment">// Wraps setTimeout in a Promise so we can use await:</span>
+<span class="kw">function</span> <span class="fn">sleep</span>(ms) {
+  <span class="kw">return new</span> Promise(resolve => setTimeout(resolve, ms));
+}
+
+<span class="comment">// Now we can write sequential animations like English:</span>
+<span class="kw">async function</span> <span class="fn">coolAnimation</span>() {
+  showMessage(<span class="str">'Loading...'</span>);
+  <span class="kw">await</span> sleep(1000);         <span class="comment">// Wait 1 second</span>
+  showMessage(<span class="str">'Almost...'</span>);
+  <span class="kw">await</span> sleep(1000);         <span class="comment">// Wait 1 second</span>
+  showMessage(<span class="str">'Done!'</span>);
+}
+
+<span class="comment">// Used 182 times throughout the codebase!</span></div>
+
+    <h3>The toggleSection() Helper</h3>
+    <div class="code"><span class="comment">// Makes any section collapsible with one call:</span>
+<span class="kw">function</span> <span class="fn">toggleSection</span>(toggleId, bodyId, arrowId) {
+  <span class="kw">const</span> toggle = $(toggleId);
+  <span class="kw">const</span> body = $(bodyId);
+  <span class="kw">const</span> arrow = $(arrowId);
+
+  toggle.addEventListener(<span class="str">'click'</span>, () => {
+    <span class="kw">const</span> isOpen = body.style.display !== <span class="str">'none'</span>;
+    body.style.display = isOpen ? <span class="str">'none'</span> : <span class="str">''</span>;
+    arrow.classList.toggle(<span class="str">'open'</span>, !isOpen);
+  });
+}
+
+<span class="comment">// Usage — every section uses this:</span>
+toggleSection(<span class="str">'cryptoToggle'</span>, <span class="str">'cryptoBody'</span>, <span class="str">'cryptoArrow'</span>);</div>
+  </div>
+
+  <!-- 06 SVG MASKS -->
+  <div class="doc-section" id="svg-masks">
+    <div class="section-title"><span class="prompt">&gt;</span> 06 — SVG MASK SYSTEM</div>
+    <p>All 20 masks are <strong>generated with JavaScript code</strong>, not image files. A shared SVG path defines the Guy Fawkes shape, and each variant applies different fills, strokes, or patterns:</p>
+    <div class="code"><span class="kw">const</span> MASK_BASE = <span class="str">`M50,10 C20,10 5,35 5,55 ...`</span>; <span class="comment">// Guy Fawkes outline path</span>
+
+<span class="kw">const</span> MASKS = [
+  {
+    name: <span class="str">'CLASSIC'</span>,
+    svg: () => <span class="str">`&lt;svg viewBox="0 0 100 120"&gt;
+      &lt;path d="${MASK_BASE}" fill="#f5f5f0" stroke="#333"/&gt;
+    &lt;/svg&gt;`</span>
+  },
+  {
+    name: <span class="str">'MATRIX'</span>,
+    svg: () => <span class="str">`&lt;svg&gt;
+      &lt;defs&gt;
+        &lt;pattern id="matrixPat" ...&gt;
+          &lt;text&gt;01001010&lt;/text&gt;  // Binary pattern fill
+        &lt;/pattern&gt;
+      &lt;/defs&gt;
+      &lt;path d="${MASK_BASE}" fill="url(#matrixPat)"/&gt;
+    &lt;/svg&gt;`</span>
+  },
+  <span class="comment">// ... 18 more variants</span>
+];
+
+<span class="comment">// Why SVG? No image files needed. Scales to any size.</span>
+<span class="comment">// Colors change with themes. Zero network requests.</span></div>
+  </div>
+
+  <!-- 07 THEMES -->
+  <div class="doc-section" id="themes">
+    <div class="section-title"><span class="prompt">&gt;</span> 07 — CSS THEME SYSTEM</div>
+    <p>The entire color scheme is controlled by CSS custom properties (variables):</p>
+    <div class="code"><span class="comment">/* style.css — all colors defined once */</span>
+:root {
+  --green: <span class="str">#00ff41</span>;
+  --green-dim: <span class="str">#00aa2a</span>;
+  --green-glow: <span class="str">rgba(0,255,65,.15)</span>;
+  --bg: <span class="str">#0a0a0a</span>;
+  --cyan: <span class="str">#00ffff</span>;
+}
+
+<span class="comment">/* Every element uses these variables: */</span>
+.button {
+  color: <span class="kw">var</span>(--green);
+  border: 1px solid <span class="kw">var</span>(--border);
+  text-shadow: 0 0 6px <span class="kw">var</span>(--green-glow);
+}
+
+<span class="comment">/* Switching themes = changing variable values: */</span></div>
+    <div class="code"><span class="comment">// script.js — theme switching</span>
+<span class="kw">function</span> <span class="fn">applyTheme</span>(theme) {
+  <span class="kw">const</span> root = document.documentElement;
+  <span class="kw">if</span> (theme === <span class="str">'neon'</span>) {
+    root.style.setProperty(<span class="str">'--green'</span>, <span class="str">'#00ffff'</span>);
+    root.style.setProperty(<span class="str">'--bg'</span>, <span class="str">'#08001a'</span>);
+  }
+}
+
+<span class="comment">// The Custom Theme Builder uses &lt;input type="color"&gt;</span>
+<span class="comment">// and sets these same CSS variables with user-picked colors.</span></div>
+  </div>
+
+  <!-- 08 WEB AUDIO -->
+  <div class="doc-section" id="webaudio">
+    <div class="section-title"><span class="prompt">&gt;</span> 08 — WEB AUDIO API (Sounds Without Files)</div>
+    <p>All sounds are generated mathematically — no MP3/WAV files needed:</p>
+    <div class="code"><span class="kw">let</span> audioCtx = <span class="kw">null</span>;
+
+<span class="kw">function</span> <span class="fn">playSound</span>(freq, type, duration) {
+  <span class="comment">// Create audio context (only once)</span>
+  <span class="kw">if</span> (!audioCtx) audioCtx = <span class="kw">new</span> AudioContext();
+
+  <span class="comment">// Oscillator = sound wave generator (like a tuning fork)</span>
+  <span class="kw">const</span> osc = audioCtx.createOscillator();
+  osc.type = type;           <span class="comment">// 'sine', 'square', 'sawtooth', 'triangle'</span>
+  osc.frequency.value = freq; <span class="comment">// Pitch in Hertz</span>
+
+  <span class="comment">// Gain = volume control</span>
+  <span class="kw">const</span> gain = audioCtx.createGain();
+  gain.gain.value = 0.1;     <span class="comment">// 10% volume</span>
+
+  <span class="comment">// Connect: oscillator → volume → speakers</span>
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+
+  <span class="comment">// Play and auto-stop</span>
+  osc.start();
+  osc.stop(audioCtx.currentTime + duration);
+}</div>
+    <h4>Wave Types</h4>
+    <table>
+      <tr><th>Type</th><th>Sound</th><th>Used For</th></tr>
+      <tr><td><code>sine</code></td><td>Smooth, pure tone</td><td>Sonar, Ghost, Heartbeat</td></tr>
+      <tr><td><code>square</code></td><td>Harsh, buzzy</td><td>Robot, Alarm, Typing</td></tr>
+      <tr><td><code>sawtooth</code></td><td>Bright, sharp</td><td>Laser, Siren</td></tr>
+      <tr><td><code>triangle</code></td><td>Mellow, soft</td><td>Beep, UFO</td></tr>
+    </table>
+    <h4>The Heartbeat</h4>
+    <div class="code"><span class="comment">// Two sine oscillators at 40Hz and 45Hz</span>
+<span class="comment">// with volume envelopes create a "lub-dub" pattern:</span>
+<span class="comment">// LUB (40Hz, louder) → pause → dub (45Hz, softer)</span>
+<span class="comment">// Speed increases from 1x to 3x during exploits</span></div>
+    <h4>White Noise (Static)</h4>
+    <div class="code"><span class="comment">// Fill an audio buffer with random values:</span>
+<span class="kw">const</span> buffer = audioCtx.createBuffer(1, sampleRate, sampleRate);
+<span class="kw">const</span> data = buffer.getChannelData(0);
+<span class="kw">for</span> (<span class="kw">let</span> i = 0; i &lt; data.length; i++) {
+  data[i] = Math.random() * 2 - 1;  <span class="comment">// Random between -1 and 1</span>
+}</div>
+  </div>
+
+  <!-- 09 CANVAS -->
+  <div class="doc-section" id="canvas">
+    <div class="section-title"><span class="prompt">&gt;</span> 09 — CANVAS API (Visual Effects)</div>
+    <h4>Matrix Rain</h4>
+    <div class="code"><span class="kw">function</span> <span class="fn">drawMatrixRain</span>() {
+  <span class="comment">// 1. Don't clear — draw semi-transparent black (creates fade trail)</span>
+  ctx.fillStyle = <span class="str">'rgba(0,0,0,.05)'</span>;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  <span class="comment">// 2. Draw a random character at each column position</span>
+  ctx.fillStyle = <span class="str">'#00ff41'</span>;
+  ctx.font = <span class="str">'14px monospace'</span>;
+  <span class="kw">for</span> (<span class="kw">let</span> i = 0; i &lt; drops.length; i++) {
+    <span class="kw">const</span> ch = chars[Math.floor(Math.random() * chars.length)];
+    ctx.fillText(ch, i * 16, drops[i] * 16);
+    <span class="comment">// 3. Reset drops that pass the bottom</span>
+    <span class="kw">if</span> (drops[i] * 16 > canvas.height && Math.random() > 0.98)
+      drops[i] = 0;
+    drops[i] += 0.5;
+  }
+  requestAnimationFrame(drawMatrixRain); <span class="comment">// 4. Loop at 60fps</span>
+}</div>
+    <h4>CCTV Static (Random Pixel Noise)</h4>
+    <div class="code"><span class="kw">const</span> imgData = ctx.createImageData(width, height);
+<span class="kw">for</span> (<span class="kw">let</span> i = 0; i &lt; imgData.data.length; i += 4) {
+  <span class="kw">const</span> v = Math.random() * 30;
+  imgData.data[i]     = v * 0.3;  <span class="comment">// Red</span>
+  imgData.data[i + 1] = v * 0.8;  <span class="comment">// Green (brighter = night vision)</span>
+  imgData.data[i + 2] = v * 0.3;  <span class="comment">// Blue</span>
+  imgData.data[i + 3] = 255;      <span class="comment">// Alpha (fully opaque)</span>
+}
+ctx.putImageData(imgData, 0, 0);</div>
+    <h4>Face Glitch (Webcam + Distortion)</h4>
+    <div class="code"><span class="comment">// 1. Draw video frame to canvas</span>
+ctx.drawImage(video, 0, 0);
+<span class="comment">// 2. Random horizontal glitch strips</span>
+<span class="kw">const</span> strip = ctx.getImageData(0, y, width, h);
+ctx.putImageData(strip, offsetX, y + offsetY);
+<span class="comment">// 3. RGB channel shift</span>
+ctx.fillStyle = <span class="str">'rgba(255,0,0,.05)'</span>;
+ctx.fillRect(3, 0, width, height);  <span class="comment">// Red shifted right</span>
+ctx.fillStyle = <span class="str">'rgba(0,0,255,.05)'</span>;
+ctx.fillRect(-3, 0, width, height); <span class="comment">// Blue shifted left</span></div>
+  </div>
+
+  <!-- 10 CRYPTO -->
+  <div class="doc-section" id="crypto-code">
+    <div class="section-title"><span class="prompt">&gt;</span> 10 — CRYPTOGRAPHY ALGORITHMS</div>
+
+    <h4>Caesar Cipher (ROT13)</h4>
+    <div class="code"><span class="comment">// Shift each letter 13 positions. Apply twice = original text.</span>
+<span class="kw">function</span> <span class="fn">rot13</span>(text) {
+  <span class="kw">return</span> text.replace(/[a-zA-Z]/g, ch => {
+    <span class="kw">const</span> base = ch &lt;= <span class="str">'Z'</span> ? 65 : 97;
+    <span class="kw">return</span> String.fromCharCode((ch.charCodeAt(0) - base + 13) % 26 + base);
+  });
+}
+<span class="comment">// "HELLO" → "URYYB"   "URYYB" → "HELLO"</span></div>
+
+    <h4>Binary Encoding</h4>
+    <div class="code"><span class="comment">// Convert each character to its 8-bit binary number:</span>
+<span class="str">'H'</span>.charCodeAt(0)  <span class="comment">// → 72</span>
+(72).toString(2)     <span class="comment">// → "1001000"</span>
+<span class="comment">// Pad to 8 digits    → "01001000"</span>
+<span class="comment">// "HI" → "01001000 01001001"</span></div>
+
+    <h4>XOR Encryption</h4>
+    <div class="code"><span class="comment">// XOR (^) = if bits differ, result is 1; if same, result is 0</span>
+<span class="comment">// KEY PROPERTY: XOR with same key twice = original</span>
+<span class="comment">//   data ^ key = encrypted</span>
+<span class="comment">//   encrypted ^ key = data  ← decrypted!</span>
+
+<span class="kw">const</span> encrypted = text.split(<span class="str">''</span>).map((char, i) => {
+  <span class="kw">const</span> keyByte = key.charCodeAt(i % key.length);
+  <span class="kw">return</span> char.charCodeAt(0) ^ keyByte;
+});</div>
+
+    <h4>Steganography (Zero-Width Characters)</h4>
+    <div class="code"><span class="comment">// 4 invisible Unicode characters represent bit pairs:</span>
+<span class="kw">const</span> ZW = [
+  <span class="str">'\u200B'</span>,  <span class="comment">// Zero-width space      = 00</span>
+  <span class="str">'\u200C'</span>,  <span class="comment">// Zero-width non-joiner  = 01</span>
+  <span class="str">'\u200D'</span>,  <span class="comment">// Zero-width joiner      = 10</span>
+  <span class="str">'\uFEFF'</span>,  <span class="comment">// Zero-width no-break    = 11</span>
+];
+
+<span class="comment">// 1. Convert secret to binary string</span>
+<span class="comment">// 2. Each 2-bit pair → one zero-width character</span>
+<span class="comment">// 3. Insert invisible chars inside normal text</span>
+<span class="comment">// Result looks normal but hides the message!</span></div>
+  </div>
+
+  <!-- 11 STORAGE -->
+  <div class="doc-section" id="storage">
+    <div class="section-title"><span class="prompt">&gt;</span> 11 — localStorage PERSISTENCE</div>
+    <div class="code"><span class="comment">// Save simple values:</span>
+localStorage.setItem(<span class="str">'hacktivist_theme'</span>, <span class="str">'neon'</span>);
+
+<span class="comment">// Save complex objects as JSON:</span>
+localStorage.setItem(<span class="str">'hacktivist_agent'</span>, JSON.stringify({
+  codename: <span class="str">'SHADOW'</span>, xp: 500, missions: 12
+}));
+
+<span class="comment">// Load back:</span>
+<span class="kw">const</span> theme = localStorage.getItem(<span class="str">'hacktivist_theme'</span>);
+<span class="kw">const</span> agent = JSON.parse(localStorage.getItem(<span class="str">'hacktivist_agent'</span>));
+
+<span class="comment">// Always wrap in try/catch (fails in private browsing):</span>
+<span class="kw">try</span> { localStorage.setItem(key, val); } <span class="kw">catch</span>(e) {}</div>
+    <p class="dim">Stored: mask, theme, language, agent profile (codename, XP, rank, stats), custom theme colors.</p>
+  </div>
+
+  <!-- 12 EVENTS -->
+  <div class="doc-section" id="events">
+    <div class="section-title"><span class="prompt">&gt;</span> 12 — EVENT-DRIVEN ARCHITECTURE</div>
+    <p>Every feature follows the same setup pattern (124 event listeners total):</p>
+    <div class="code"><span class="kw">function</span> <span class="fn">setupMyFeature</span>() {
+  <span class="comment">// 1. Make section collapsible</span>
+  toggleSection(<span class="str">'myToggle'</span>, <span class="str">'myBody'</span>, <span class="str">'myArrow'</span>);
+
+  <span class="comment">// 2. Add event listeners</span>
+  $(<span class="str">'myButton'</span>).addEventListener(<span class="str">'click'</span>, () => {
+    <span class="comment">// 3. Do the thing</span>
+    $(<span class="str">'myOutput'</span>).innerHTML = <span class="str">'Result!'</span>;
+
+    <span class="comment">// 4. Award XP</span>
+    addXp(10, <span class="str">'mission'</span>);
+  });
+}</div>
+  </div>
+
+  <!-- 13 I18N -->
+  <div class="doc-section" id="i18n">
+    <div class="section-title"><span class="prompt">&gt;</span> 13 — INTERNATIONALIZATION &amp; RTL</div>
+    <div class="code"><span class="comment">// Translation dictionary with 60+ keys per language:</span>
+<span class="kw">const</span> I18N = {
+  en: { connected: <span class="str">'CONNECTED'</span>, ops_briefing: <span class="str">'OPS_BRIEFING'</span> },
+  fr: { connected: <span class="str">'CONNECTÉ'</span>, ops_briefing: <span class="str">'BRIEFING_OPS'</span> },
+  ar: { connected: <span class="str">'متصل'</span>, ops_briefing: <span class="str">'إحاطة_العمليات'</span> },
+};
+
+<span class="comment">// HTML elements tagged with data-i18n:</span>
+<span class="comment">// &lt;span data-i18n="connected"&gt;CONNECTED&lt;/span&gt;</span>
+
+<span class="comment">// Switching language finds all tagged elements:</span>
+document.querySelectorAll(<span class="str">'[data-i18n]'</span>).forEach(el => {
+  el.textContent = I18N[lang][el.dataset.i18n];
+});
+
+<span class="comment">// Arabic triggers RTL:</span>
+document.documentElement.dir = <span class="str">'rtl'</span>; <span class="comment">// flips entire layout</span></div>
+  </div>
+
+  <!-- 14 XP -->
+  <div class="doc-section" id="xp">
+    <div class="section-title"><span class="prompt">&gt;</span> 14 — XP &amp; ACHIEVEMENT SYSTEM</div>
+    <div class="code"><span class="kw">const</span> RANKS = [
+  { name: <span class="str">'RECRUIT'</span>,   minXp: 0 },
+  { name: <span class="str">'OPERATIVE'</span>, minXp: 100 },
+  { name: <span class="str">'AGENT'</span>,     minXp: 300 },
+  { name: <span class="str">'SPECIALIST'</span>,minXp: 600 },
+  { name: <span class="str">'ELITE'</span>,     minXp: 1000 },
+  { name: <span class="str">'SHADOW'</span>,    minXp: 1500 },
+  { name: <span class="str">'ANONY'</span>,     minXp: 2500 },
+];
+
+<span class="comment">// Achievements use declarative checks:</span>
+{ id:<span class="str">'first_hack'</span>, check: () => agentData.missions >= 1 }
+<span class="comment">// Returns true/false. Re-evaluated after every XP change.</span></div>
+  </div>
+
+  <!-- 15 EXPLOITS -->
+  <div class="doc-section" id="exploits">
+    <div class="section-title"><span class="prompt">&gt;</span> 15 — FULLSCREEN EXPLOIT SYSTEM</div>
+    <div class="code"><span class="comment">// All exploits share ONE overlay container:</span>
+<span class="comment">// &lt;div id="exploitOverlay"&gt;&lt;div id="exploitContent"&gt;&lt;/div&gt;&lt;/div&gt;</span>
+
+<span class="kw">function</span> <span class="fn">launchExploit</span>(type) {
+  $(<span class="str">'exploitOverlay'</span>).style.display = <span class="str">'flex'</span>;
+  <span class="kw">if</span> (type === <span class="str">'bsod'</span>) {
+    $(<span class="str">'exploitContent'</span>).innerHTML = <span class="str">'...blue screen HTML...'</span>;
+  } <span class="kw">else if</span> (type === <span class="str">'matrix'</span>) {
+    startMatrix(); <span class="comment">// Canvas animation</span>
+  }
+}
+
+<span class="kw">function</span> <span class="fn">closeExploit</span>() {
+  $(<span class="str">'exploitOverlay'</span>).style.display = <span class="str">'none'</span>;
+  $(<span class="str">'exploitContent'</span>).innerHTML = <span class="str">''</span>;
+}
+
+<span class="comment">// ESC to close (global listener):</span>
+document.addEventListener(<span class="str">'keydown'</span>, e => {
+  <span class="kw">if</span> (e.key === <span class="str">'Escape'</span>) closeExploit();
+});</div>
+  </div>
+
+  <!-- 16 DEMO CODE -->
+  <div class="doc-section" id="demo-code">
+    <div class="section-title"><span class="prompt">&gt;</span> 16 — HOW DEMO MODE WORKS</div>
+    <div class="code"><span class="comment">// Array of 39 steps, each with an async action:</span>
+<span class="kw">const</span> DEMO_STEPS = [
+  {
+    name: <span class="str">'MASK VAULT'</span>,
+    desc: <span class="str">'20 Guy Fawkes variants'</span>,
+    action: <span class="kw">async</span> () => {
+      openSidebar();
+      <span class="kw">await</span> sleep(800);
+      <span class="comment">// Programmatically click through masks</span>
+      masks.forEach(m => { m.click(); <span class="kw">await</span> sleep(600); });
+    }
+  },
+  <span class="comment">// ... 38 more steps</span>
+];
+
+<span class="comment">// Runner loops through all steps sequentially:</span>
+<span class="kw">for</span> (<span class="kw">const</span> step <span class="kw">of</span> DEMO_STEPS) {
+  <span class="kw">if</span> (aborted) <span class="kw">break</span>;
+  updateBanner(step);
+  <span class="kw">await</span> step.action();
+  <span class="kw">await</span> sleep(500);
+}</div>
+  </div>
+
+  <!-- 17 WEBCAM -->
+  <div class="doc-section" id="webcam">
+    <div class="section-title"><span class="prompt">&gt;</span> 17 — CAMERA &amp; MIC (getUserMedia)</div>
+    <div class="code"><span class="comment">// Request camera access (user must explicitly allow):</span>
+<span class="kw">const</span> stream = <span class="kw">await</span> navigator.mediaDevices.getUserMedia({
+  video: <span class="kw">true</span>   <span class="comment">// or { audio: true } for mic</span>
+});
+
+<span class="comment">// Connect to a &lt;video&gt; element:</span>
+<span class="kw">const</span> video = document.createElement(<span class="str">'video'</span>);
+video.srcObject = stream;
+video.play();
+
+<span class="comment">// Draw video to canvas for effects:</span>
+ctx.drawImage(video, 0, 0);
+
+<span class="comment">// Always stop when done:</span>
+stream.getTracks().forEach(track => track.stop());</div>
+    <div class="warning tip"><div class="tip-label">⚠ IMPORTANT</div>Camera/mic are ONLY used when the user explicitly clicks Face Glitch or Voice Disguiser. The browser shows a permission popup. No data leaves the device.</div>
+  </div>
+
+  <!-- 18 STEGO -->
+  <div class="doc-section" id="stego-code">
+    <div class="section-title"><span class="prompt">&gt;</span> 18 — STEGANOGRAPHY DEEP DIVE</div>
+    <p>Steganography hides data inside other data. Our Stego Lab hides text inside text using invisible Unicode characters that have zero visual width:</p>
+    <div class="code"><span class="comment">// Input: secret="hi", cover="Normal text"</span>
+<span class="comment">// Step 1: "hi" → binary: 01101000 01101001</span>
+<span class="comment">// Step 2: split into 2-bit pairs: 01 10 10 00 01 10 10 01</span>
+<span class="comment">// Step 3: each pair → invisible character:</span>
+<span class="comment">//   01 = \u200C  10 = \u200D  00 = \u200B  etc.</span>
+<span class="comment">// Step 4: insert after first char of cover text</span>
+<span class="comment">// Output: "N[invisible chars]ormal text"</span>
+<span class="comment">//</span>
+<span class="comment">// It looks EXACTLY like "Normal text" on screen!</span>
+<span class="comment">// But pasting it into the decoder reveals "hi"</span></div>
+  </div>
+
+  <!-- 19 LIBS -->
+  <div class="doc-section" id="libs">
+    <div class="section-title"><span class="prompt">&gt;</span> 19 — LIBRARIES &amp; APIs USED</div>
+    <table>
+      <tr><th>API/Technology</th><th>What It Does</th><th>Standard?</th></tr>
+      <tr><td>Web Audio API</td><td>Generate sounds mathematically</td><td>✅ Built into all browsers</td></tr>
+      <tr><td>Canvas 2D API</td><td>Draw pixels, shapes, text</td><td>✅ Built into all browsers</td></tr>
+      <tr><td>SVG</td><td>Vector graphics for masks</td><td>✅ Built into all browsers</td></tr>
+      <tr><td>localStorage</td><td>Persist data between sessions</td><td>✅ Built into all browsers</td></tr>
+      <tr><td>getUserMedia</td><td>Camera &amp; microphone access</td><td>✅ Built into all browsers</td></tr>
+      <tr><td>Clipboard API</td><td>Copy text to clipboard</td><td>✅ Built into all browsers</td></tr>
+      <tr><td>CSS Custom Properties</td><td>Theme variables</td><td>✅ Built into all browsers</td></tr>
+      <tr><td>CSS Grid/Flexbox</td><td>Responsive layouts</td><td>✅ Built into all browsers</td></tr>
+      <tr><td>Google Fonts (external)</td><td>Typography</td><td>CDN — only external request</td></tr>
+    </table>
+    <p><strong>Zero npm packages. Zero frameworks. Zero build tools.</strong> Everything uses browser-native APIs.</p>
+  </div>
+
+  <!-- 20 FAQ -->
+  <div class="doc-section" id="faq">
+    <div class="section-title"><span class="prompt">&gt;</span> 20 — FAQ</div>
+
+    <div class="faq-item"><div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">Is this real hacking? <span class="arrow">▸</span></div><div class="faq-a">No. Everything is simulated. No networks scanned, no cameras accessed without permission, no files encrypted, no computers modified.</div></div>
+
+    <div class="faq-item"><div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">Is it safe for kids? <span class="arrow">▸</span></div><div class="faq-a">Yes. All pranks are harmless. All scary screens reveal "just kidding". No data leaves the browser. The phishing quiz teaches real online safety skills.</div></div>
+
+    <div class="faq-item"><div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">Does it need internet? <span class="arrow">▸</span></div><div class="faq-a">Only for Google Fonts on first visit. Everything else works 100% offline.</div></div>
+
+    <div class="faq-item"><div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">What's the password? <span class="arrow">▸</span></div><div class="faq-a"><strong>anony</strong> (5 lowercase letters). After 3 wrong attempts, a bigger hint appears.</div></div>
+
+    <div class="faq-item"><div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">How do I exit an exploit? <span class="arrow">▸</span></div><div class="faq-a">Press <strong>ESC</strong> or <strong>click/tap anywhere</strong>. Works for all fullscreen screens.</div></div>
+
+    <div class="faq-item"><div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">Where is my data stored? <span class="arrow">▸</span></div><div class="faq-a">In your browser's localStorage. Never leaves your device. Clearing browser data resets everything.</div></div>
+
+    <div class="faq-item"><div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">Why no sound on first load? <span class="arrow">▸</span></div><div class="faq-a">Browsers block auto-playing audio until a user interaction (click/tap). Once you click anything, all sounds work.</div></div>
+
+    <div class="faq-item"><div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">Does the webcam exploit access my real camera? <span class="arrow">▸</span></div><div class="faq-a"><strong>Webcam Fake Hack:</strong> No — it shows animated static/noise, no real camera. <strong>Face Glitch:</strong> Yes — it requests camera permission (you can deny), applies distortion effects in real-time. The browser always shows a permission popup.</div></div>
+
+    <div class="faq-item"><div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">What's the fastest way to rank up? <span class="arrow">▸</span></div><div class="faq-a">Konami Code (↑↑↓↓←→←→BA) = 500 XP instantly. Screen Takeover = 100 XP. Manifesto = 25 XP. Stack them!</div></div>
+
+    <div class="faq-item"><div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">Can I use this for a school project? <span class="arrow">▸</span></div><div class="faq-a">Absolutely! Crypto Room teaches real cryptography. Slogans teach history. Password Tester teaches security. File Encryptor demonstrates XOR encryption. Terminal teaches command-line concepts.</div></div>
+
+    <div class="faq-item"><div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">How do I reset everything? <span class="arrow">▸</span></div><div class="faq-a">Sidebar → Agent Profile → RESET_AGENT. For full reset: clear browser localStorage.</div></div>
+
+    <div class="faq-item"><div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">What are zero-width characters? <span class="arrow">▸</span></div><div class="faq-a">Unicode characters that have no visual width — they're completely invisible. Used in real steganography to hide messages. Our Stego Lab uses \u200B, \u200C, \u200D, and \uFEFF to encode binary data inside normal-looking text.</div></div>
+
+    <div class="faq-item"><div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">Why vanilla JS and no React? <span class="arrow">▸</span></div><div class="faq-a">Zero dependencies means: no npm install, no build step, no node_modules, no webpack config. Just open the HTML file. It works in 2024 and will work in 2034. React apps break when dependencies get outdated.</div></div>
+
+    <div class="faq-item"><div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">How does the Demo Mode work? <span class="arrow">▸</span></div><div class="faq-a">It's an array of 39 async functions. A runner loop calls each function with await, showing a progress banner. Each function programmatically clicks buttons, types text, and opens sections — exactly like a user would. Abort cleans up all overlays.</div></div>
+
+    <div class="faq-item"><div class="faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">How big is the codebase? <span class="arrow">▸</span></div><div class="faq-a">5,683 lines across 5 files. 341KB total. 53 setup functions. 124 event listeners. 182 async/await calls. 61 distinct features. Zero external dependencies.</div></div>
+  </div>
+
+  <!-- 21 TROUBLESHOOTING -->
+  <div class="doc-section" id="troubleshooting">
+    <div class="section-title"><span class="prompt">&gt;</span> 21 — TROUBLESHOOTING</div>
+    <table>
+      <tr><th>Problem</th><th>Solution</th></tr>
+      <tr><td>Fonts look wrong</td><td>Check internet for Google Fonts. Works without them using fallback.</td></tr>
+      <tr><td>No sounds</td><td>Click anywhere first (browser audio policy). Check volume.</td></tr>
+      <tr><td>Exploit won't close</td><td>Press ESC or click/tap the screen.</td></tr>
+      <tr><td>Settings not saving</td><td>Enable localStorage. Don't use incognito mode.</td></tr>
+      <tr><td>Arabic text wrong</td><td>Needs Noto Kufi Arabic font (requires internet first time).</td></tr>
+      <tr><td>Animations laggy</td><td>Close other tabs. Matrix rain + noise are CPU-intensive.</td></tr>
+      <tr><td>Camera denied</td><td>Allow camera in browser permissions for Face Glitch.</td></tr>
+      <tr><td>Demo mode stuck</td><td>Click ■ ABORT in sidebar. All overlays will close.</td></tr>
+    </table>
+  </div>
+
+  <!-- 22 PARENTS -->
+  <div class="doc-section" id="parents">
+    <div class="section-title"><span class="prompt">&gt;</span> 22 — FOR PARENTS &amp; EDUCATORS</div>
+    <p>Hacktivist Kids channels kids' curiosity about "hacking" into safe, productive, educational activities.</p>
+    <h3>What kids learn:</h3>
+    <p><strong>Cryptography</strong> — Caesar cipher (Julius Caesar), binary (how computers store data), Morse code (WWII), XOR encryption (modern security), steganography (hidden messages).</p>
+    <p><strong>Online Safety</strong> — The phishing quiz teaches kids to spot real scam patterns: fake domains, urgency tactics, suspicious links. The password tester teaches what makes passwords strong.</p>
+    <p><strong>History &amp; Culture</strong> — 30 slogans are plays on famous quotes with original sources (Shakespeare, Descartes, JFK, Apple, Star Wars).</p>
+    <p><strong>Computer Science</strong> — Command-line interfaces, network concepts, encryption, Web Audio synthesis, canvas drawing, SVG graphics.</p>
+    <p><strong>Creative Expression</strong> — Slogan Forge, Manifesto, Wanted Poster, ASCII Art encourage original creation.</p>
+    <div class="warning tip"><div class="tip-label">⚠ SAFETY</div>All pranks are harmless and reversible. The app does NOT teach real hacking or unauthorized access. The webcam exploit does NOT access real cameras (except Face Glitch which requires explicit permission). Every scary screen reveals "just kidding".</div>
+    <a class="back-link" href="index.html">&gt; LAUNCH HACKTIVIST KIDS</a>
+  </div>
+
+  <div class="doc-footer">
+    🎭 HACKTIVIST KIDS v2.0 ULTRA — A Workshop DIY Project<br>
+    <a href="https://workshop-diy.org" style="color:var(--green-dim);">workshop-diy.org</a><br><br>
+    We are Anony... we never log off.
+  </div>
+
+</div>
+</body>
+</html>

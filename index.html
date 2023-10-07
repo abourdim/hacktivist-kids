@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>HACKTIVIST KIDS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@500;700;900&family=Noto+Kufi+Arabic:wght@400;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ══════ WORKSHOP DIY SPLASH SCREEN ══════ -->
+<div id="splashOverlay" class="splash-overlay">
+  <div class="splash-content">
+    <div class="splash-logo" id="splashLogo"></div>
+    <div class="splash-powered">POWERED BY</div>
+    <div class="splash-url">workshop-diy.org</div>
+    <div class="splash-line"></div>
+  </div>
+</div>
+
+<!-- ══════ ANONYMOUS PASSWORD SCREEN ══════ -->
+<div id="passwordOverlay" class="password-overlay" style="display:none;">
+  <div class="password-content">
+    <div class="password-mask" id="passwordMask"></div>
+    <div class="password-text" id="passwordText"></div>
+    <div class="password-input-area">
+      <span class="password-prompt">&gt; ENTER_PASSKEY: </span>
+      <input type="password" id="passwordInput" class="password-field" autocomplete="off" spellcheck="false" maxlength="20"/>
+    </div>
+    <div class="password-hint" id="passwordHint"></div>
+    <div class="password-attempts" id="passwordAttempts"></div>
+  </div>
+</div>
+
+<!-- ══════ BOOT SEQUENCE OVERLAY ══════ -->
+<div id="bootOverlay" class="boot-overlay">
+  <div class="boot-content">
+    <div class="boot-lines" id="bootLines"></div>
+    <div class="boot-mask-reveal" id="bootMask"></div>
+  </div>
+</div>
+
+<!-- ══════ SCAN LINES OVERLAY ══════ -->
+<div class="scanlines" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="noise" aria-hidden="true"></div>
+
+<!-- ══════ SIDEBAR ══════ -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="sidebar-title">&gt; SYS_CONFIG</span>
+    <button class="sidebar-close" id="sidebarClose">✕</button>
+  </div>
+  <div class="sidebar-scroll">
+
+    <!-- Slogan Mode -->
+    <div class="sidebar-section">
+      <div class="sidebar-label">&gt; SLOGAN_MODE</div>
+      <div class="sidebar-buttons">
+        <button class="mode-btn active" data-mode="rotate" id="modeRotate">ROTATE</button>
+        <button class="mode-btn" data-mode="shuffle" id="modeShuffle">GLITCH</button>
+        <button class="mode-btn" data-mode="wall" id="modeWall">WALL</button>
+      </div>
+    </div>
+
+    <!-- Slogan Forge -->
+    <div class="sidebar-section">
+      <div class="sidebar-label">&gt; SLOGAN_FORGE <span class="sidebar-tag">// hack a slogan</span></div>
+      <div class="forge-modes">
+        <button class="mode-btn active" id="forgeHack" data-forge="hack">HACK EXISTING</button>
+        <button class="mode-btn" id="forgeFree" data-forge="free">FREE HACK</button>
+      </div>
+      <div class="forge-area" id="forgeArea">
+        <!-- Hack existing mode -->
+        <div class="forge-existing" id="forgeExisting">
+          <div class="forge-original" id="forgeOriginal"></div>
+          <button class="forge-random-btn" id="forgeRandomBtn">🔄 RANDOM SLOGAN</button>
+          <div class="forge-input-wrap">
+            <span class="forge-prefix">We are Anony...</span>
+            <input type="text" id="forgeInput" class="forge-field" placeholder="type your hack" maxlength="60"/>
+          </div>
+        </div>
+      </div>
+      <div class="forge-preview" id="forgePreview"></div>
+      <div class="forge-actions">
+        <button class="mode-btn" id="forgeDeploy">⚡ DEPLOY</button>
+        <button class="mode-btn" id="forgeCopy">📋 COPY</button>
+      </div>
+    </div>
+
+    <!-- Theme -->
+    <div class="sidebar-section">
+      <div class="sidebar-label">&gt; THEME</div>
+      <div class="sidebar-buttons theme-buttons">
+        <button class="mode-btn active" data-theme="dark" id="themeDark">TERMINAL</button>
+        <button class="mode-btn" data-theme="neon" id="themeNeon">NEON OPS</button>
+        <button class="mode-btn" data-theme="redteam" id="themeRed">RED TEAM</button>
+        <button class="mode-btn" data-theme="light" id="themeLight">LIGHT</button>
+      </div>
+    </div>
+
+    <!-- Language -->
+    <div class="sidebar-section">
+      <div class="sidebar-label">&gt; LANGUAGE</div>
+      <div class="sidebar-buttons">
+        <button class="mode-btn active" data-lang="en" id="langEn">EN</button>
+        <button class="mode-btn" data-lang="fr" id="langFr">FR</button>
+        <button class="mode-btn" data-lang="ar" id="langAr">عربي</button>
+      </div>
+    </div>
+
+    <!-- Custom Theme Builder -->
+    <div class="sidebar-section">
+      <div class="sidebar-label">&gt; THEME_BUILDER <span class="sidebar-tag">// your colors</span></div>
+      <div class="theme-builder">
+        <div class="tb-row"><label class="tb-label">MAIN:</label><input type="color" id="tbMain" value="#00ff41" class="tb-color"/></div>
+        <div class="tb-row"><label class="tb-label">BG:</label><input type="color" id="tbBg" value="#0a0a0a" class="tb-color"/></div>
+        <div class="tb-row"><label class="tb-label">ACCENT:</label><input type="color" id="tbAccent" value="#00ffff" class="tb-color"/></div>
+      </div>
+      <button class="mode-btn" id="tbApply" style="margin-top:6px;width:100%;">APPLY CUSTOM</button>
+      <button class="mode-btn" id="tbReset" style="margin-top:4px;width:100%;opacity:.5;">RESET</button>
+    </div>
+
+    <!-- Ambient Mode -->
+    <div class="sidebar-section">
+      <div class="sidebar-label">&gt; AMBIENT_MODE <span class="sidebar-tag">// screensaver</span></div>
+      <div class="sidebar-buttons">
+        <button class="mode-btn" id="ambientStart">▶ START</button>
+        <button class="mode-btn" id="ambientStop">■ STOP</button>
+      </div>
+    </div>
+
+    <!-- DEMO MODE -->
+    <div class="sidebar-section">
+      <div class="sidebar-label">&gt; DEMO_MODE <span class="sidebar-tag">// showcase all features</span></div>
+      <div class="sidebar-buttons">
+        <button class="mode-btn demo-btn" id="demoStart">▶ RUN DEMO</button>
+        <button class="mode-btn" id="demoStop">■ ABORT</button>
+      </div>
+      <div class="demo-progress" id="demoProgress" style="margin-top:6px;">
+        <div class="ops-label" id="demoStatus">DEMO IDLE</div>
+        <div class="countdown-bar" style="margin-top:4px;"><div class="countdown-fill" id="demoFill" style="width:0%;background:var(--green);"></div></div>
+      </div>
+    </div>
+
+    <!-- Mask Vault -->
+    <div class="sidebar-section">
+      <div class="sidebar-label">&gt; MASK_VAULT <span class="sidebar-tag">// select identity</span></div>
+      <div class="mask-grid" id="maskGrid"></div>
+      <div class="mask-selected-info" id="maskInfo">
+        <span class="prompt">&gt;</span> <span id="maskInfoText">No mask selected.</span>
+      </div>
+    </div>
+
+    <!-- Slogan Archive -->
+    <div class="sidebar-section">
+      <div class="sidebar-label">&gt; SLOGAN_ARCHIVE <span class="sidebar-tag">// classified</span></div>
+      <div class="slogan-archive" id="sloganArchive"></div>
+    </div>
+
+    <!-- Agent Profile -->
+    <div class="sidebar-section">
+      <div class="sidebar-label">&gt; AGENT_PROFILE <span class="sidebar-tag">// your identity</span></div>
+      <div class="agent-card" id="agentCard">
+        <div class="agent-mask-display" id="agentMaskDisplay"></div>
+        <div class="agent-details">
+          <div class="agent-field">
+            <span class="agent-field-label">CODENAME:</span>
+            <input type="text" id="agentCodename" class="agent-input" placeholder="Enter codename" maxlength="20"/>
+          </div>
+          <div class="agent-rank" id="agentRank">RANK: RECRUIT</div>
+          <div class="agent-xp-bar">
+            <div class="agent-xp-fill" id="agentXpFill" style="width:0%"></div>
+          </div>
+          <div class="agent-xp-text" id="agentXpText">0 / 100 XP</div>
+          <div class="agent-stats" id="agentStats">
+            <span>Missions: 0</span>
+            <span>Exploits: 0</span>
+            <span>Encrypts: 0</span>
+          </div>
+        </div>
+      </div>
+      <button class="ops-btn" id="agentReset" style="margin-top:8px;font-size:10px;opacity:.5">&gt; RESET_AGENT</button>
+    </div>
+
+  </div>
+</aside>
+
+<!-- ══════ MAIN APP ══════ -->
+<div class="app" id="app" style="display:none;">
+
+  <!-- ── BG WATERMARK MASK ── -->
+  <div class="watermark-mask" aria-hidden="true" id="watermarkMask"></div>
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <div class="header-top">
+      <a href="https://workshop-diy.org" target="_blank" rel="noopener" class="workshop-link">
+        <span class="workshop-logo" id="workshopLogo"></span>
+        <span class="workshop-url">workshop-diy.org</span>
+      </a>
+      <div class="terminal-tag"><span data-i18n="terminal_tag">root@hacktivist-kids:~$</span></div>
+      <div class="header-actions">
+        <div class="status-pill">
+          <span class="status-dot"></span>
+          <span data-i18n="connected">CONNECTED</span>
+        </div>
+        <button class="sidebar-toggle" id="sidebarToggle" title="System Config">
+          <span class="toggle-icon">⚙</span>
+          <span class="toggle-label" data-i18n="config">CONFIG</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════ FULL ANONYMOUS ZONE ══════ -->
+  <main class="anon-zone">
+
+    <!-- Central Mask + Title -->
+    <div class="anon-hero">
+      <div class="hero-mask" id="mainMask"></div>
+      <h1 class="glitch-title" data-text="HACKTIVIST KIDS">HACKTIVIST KIDS</h1>
+      <div class="subtitle-line">
+        <span class="sub-tag">a</span>
+        <span class="workshop-name">Workshop DIY</span>
+        <span class="sub-tag">project</span>
+      </div>
+    </div>
+
+    <!-- Slogan Display -->
+    <div class="anon-slogan">
+      <div class="slogan-display" id="sloganDisplay"></div>
+    </div>
+
+    <!-- Slogan Wall (hidden by default) -->
+    <div class="slogan-wall" id="sloganWall" style="display:none;"></div>
+
+    <!-- ══════ OPS BRIEFING ══════ -->
+    <section class="ops-section" id="opsSection">
+      <div class="ops-header" id="opsToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title"data-i18n="ops_briefing">OPS_BRIEFING</span>
+        <span class="ops-tag"><span data-i18n="ops_tag">// classified prank missions</span></span>
+        <span class="ops-arrow" id="opsArrow">▸</span>
+      </div>
+      <div class="ops-body" id="opsBody" style="display:none;">
+        <div class="ops-screen" id="opsScreen">
+          <div class="ops-label">MISSION STATUS: STANDBY</div>
+        </div>
+        <button class="ops-btn" id="opsGenerate">&gt; GENERATE_MISSION</button>
+      </div>
+    </section>
+
+    <!-- ══════ EXPLOIT LAB ══════ -->
+    <section class="ops-section" id="exploitSection">
+      <div class="ops-header" id="exploitToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title"data-i18n="exploit_lab">EXPLOIT_LAB</span>
+        <span class="ops-tag"><span data-i18n="exploit_tag">// deploy screen exploits</span></span>
+        <span class="ops-arrow" id="exploitArrow">▸</span>
+      </div>
+      <div class="ops-body" id="exploitBody" style="display:none;">
+        <div class="exploit-grid" id="exploitGrid"></div>
+      </div>
+    </section>
+
+    <!-- ══════ PAYLOAD ROULETTE ══════ -->
+    <section class="ops-section" id="payloadSection">
+      <div class="ops-header" id="payloadToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title"data-i18n="payload_roulette">PAYLOAD_ROULETTE</span>
+        <span class="ops-tag"><span data-i18n="payload_tag">// encrypted prank spinner</span></span>
+        <span class="ops-arrow" id="payloadArrow">▸</span>
+      </div>
+      <div class="ops-body" id="payloadBody" style="display:none;">
+        <div class="payload-display" id="payloadDisplay">
+          <div class="payload-label">SPIN TO DECRYPT A PRANK</div>
+        </div>
+        <button class="ops-btn" id="payloadSpin">&gt; SPIN_ROULETTE</button>
+      </div>
+    </section>
+
+    <!-- ══════ SIGNAL JAM ══════ -->
+    <section class="ops-section" id="signalSection">
+      <div class="ops-header" id="signalToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title"data-i18n="signal_jam">SIGNAL_JAM</span>
+        <span class="ops-tag"><span data-i18n="signal_tag">// distraction soundboard</span></span>
+        <span class="ops-arrow" id="signalArrow">▸</span>
+      </div>
+      <div class="ops-body" id="signalBody" style="display:none;">
+        <div class="signal-grid" id="signalGrid"></div>
+        <div class="signal-info">Sounds use Web Audio API — no files needed</div>
+      </div>
+    </section>
+
+    <!-- ══════ CRYPTO ROOM ══════ -->
+    <section class="ops-section" id="cryptoSection">
+      <div class="ops-header" id="cryptoToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title"data-i18n="crypto_room">CRYPTO_ROOM</span>
+        <span class="ops-tag"><span data-i18n="crypto_tag">// encode &amp; decode messages</span></span>
+        <span class="ops-arrow" id="cryptoArrow">▸</span>
+      </div>
+      <div class="ops-body" id="cryptoBody" style="display:none;">
+        <div class="crypto-modes">
+          <button class="mode-btn active" data-cipher="caesar" id="cipherCaesar">CAESAR</button>
+          <button class="mode-btn" data-cipher="binary" id="cipherBinary">BINARY</button>
+          <button class="mode-btn" data-cipher="morse" id="cipherMorse">MORSE</button>
+          <button class="mode-btn" data-cipher="reverse" id="cipherReverse">REVERSE</button>
+        </div>
+        <div class="crypto-input-wrap">
+          <input type="text" id="cryptoInput" class="forge-field" placeholder="Type a secret message..." maxlength="100"/>
+        </div>
+        <div class="crypto-output" id="cryptoOutput"></div>
+        <button class="ops-btn" id="cryptoCopy">&gt; COPY_ENCODED</button>
+      </div>
+    </section>
+
+    <!-- ══════ TERMINAL MODE ══════ -->
+    <section class="ops-section" id="terminalSection">
+      <div class="ops-header" id="terminalToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">TERMINAL</span>
+        <span class="ops-tag">// hack the mainframe</span>
+        <span class="ops-arrow" id="terminalArrow">▸</span>
+      </div>
+      <div class="ops-body" id="terminalBody" style="display:none;">
+        <div class="terminal-screen" id="terminalScreen">
+          <div class="terminal-output" id="terminalOutput"><div class="terminal-line">Welcome, Agent. Type 'help' for commands.</div></div>
+          <div class="terminal-input-row">
+            <span class="terminal-ps1">anony@hq:~$</span>
+            <input type="text" id="terminalInput" class="terminal-field"/>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════ NETWORK SCANNER ══════ -->
+    <section class="ops-section" id="networkSection">
+      <div class="ops-header" id="networkToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">NET_SCANNER</span>
+        <span class="ops-tag">// scan local network</span>
+        <span class="ops-arrow" id="networkArrow">▸</span>
+      </div>
+      <div class="ops-body" id="networkBody" style="display:none;">
+        <div class="network-display" id="networkDisplay"><div class="ops-label">SCANNER IDLE</div></div>
+        <button class="ops-btn" id="networkScan">&gt; SCAN_NETWORK</button>
+      </div>
+    </section>
+
+    <!-- ══════ FILE ENCRYPTOR ══════ -->
+    <section class="ops-section" id="encryptorSection">
+      <div class="ops-header" id="encryptorToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">FILE_ENCRYPT</span>
+        <span class="ops-tag">// encrypt any text</span>
+        <span class="ops-arrow" id="encryptorArrow">▸</span>
+      </div>
+      <div class="ops-body" id="encryptorBody" style="display:none;">
+        <textarea id="encryptorInput" class="encryptor-textarea" rows="3" placeholder="Paste or type text to encrypt..."></textarea>
+        <button class="ops-btn" id="encryptorBtn">&gt; ENCRYPT_FILE</button>
+        <div class="encryptor-output" id="encryptorOutput"></div>
+      </div>
+    </section>
+
+    <!-- ══════ MANIFESTO ══════ -->
+    <section class="ops-section" id="manifestoSection">
+      <div class="ops-header" id="manifestoToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">MANIFESTO</span>
+        <span class="ops-tag">// write your declaration</span>
+        <span class="ops-arrow" id="manifestoArrow">▸</span>
+      </div>
+      <div class="ops-body" id="manifestoBody" style="display:none;">
+        <textarea id="manifestoInput" class="encryptor-textarea" rows="5" placeholder="We are Anonymous. We are Legion..."></textarea>
+        <button class="ops-btn" id="manifestoDeploy">&gt; BROADCAST_MANIFESTO</button>
+      </div>
+    </section>
+
+    <!-- ══════ STEGANOGRAPHY ══════ -->
+    <section class="ops-section" id="stegoSection">
+      <div class="ops-header" id="stegoToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">STEGO_LAB</span>
+        <span class="ops-tag">// hide messages in plain sight</span>
+        <span class="ops-arrow" id="stegoArrow">▸</span>
+      </div>
+      <div class="ops-body" id="stegoBody" style="display:none;">
+        <div class="crypto-modes">
+          <button class="mode-btn active" data-stego="encode" id="stegoEncode">HIDE</button>
+          <button class="mode-btn" data-stego="decode" id="stegoDecode">REVEAL</button>
+        </div>
+        <input type="text" id="stegoSecret" class="forge-field" placeholder="Secret message to hide..." maxlength="100" style="margin-bottom:6px;"/>
+        <input type="text" id="stegoCover" class="forge-field" placeholder="Cover text (visible text)..." maxlength="200"/>
+        <div class="crypto-output" id="stegoOutput" style="margin-top:8px;"></div>
+        <button class="ops-btn" id="stegoCopy" style="margin-top:6px;">&gt; COPY</button>
+      </div>
+    </section>
+
+    <!-- ══════ IP FAKER ══════ -->
+    <section class="ops-section" id="ipSection">
+      <div class="ops-header" id="ipToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">IP_LOCATOR</span>
+        <span class="ops-tag">// fake geo-locate any IP</span>
+        <span class="ops-arrow" id="ipArrow">▸</span>
+      </div>
+      <div class="ops-body" id="ipBody" style="display:none;">
+        <input type="text" id="ipInput" class="forge-field" placeholder="Enter any IP (e.g. 192.168.1.42)" maxlength="15"/>
+        <button class="ops-btn" id="ipLookup" style="margin-top:6px;">&gt; GEO_LOCATE</button>
+        <div class="network-display" id="ipResult" style="margin-top:8px;"><div class="ops-label">AWAITING TARGET IP</div></div>
+      </div>
+    </section>
+
+    <!-- ══════ PASSWORD TESTER ══════ -->
+    <section class="ops-section" id="pwTestSection">
+      <div class="ops-header" id="pwTestToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">PASS_AUDIT</span>
+        <span class="ops-tag">// test password strength</span>
+        <span class="ops-arrow" id="pwTestArrow">▸</span>
+      </div>
+      <div class="ops-body" id="pwTestBody" style="display:none;">
+        <input type="text" id="pwTestInput" class="forge-field" placeholder="Type a password to test..." maxlength="50"/>
+        <div class="pw-result" id="pwResult"></div>
+      </div>
+    </section>
+
+    <!-- ══════ ASCII ART ══════ -->
+    <section class="ops-section" id="asciiSection">
+      <div class="ops-header" id="asciiToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">ASCII_GEN</span>
+        <span class="ops-tag">// text to hacker art</span>
+        <span class="ops-arrow" id="asciiArrow">▸</span>
+      </div>
+      <div class="ops-body" id="asciiBody" style="display:none;">
+        <input type="text" id="asciiInput" class="forge-field" placeholder="Type text (max 10 chars)" maxlength="10"/>
+        <div class="code" id="asciiOutput" style="margin-top:8px;white-space:pre;font-size:8px;line-height:1;overflow-x:auto;"></div>
+        <button class="ops-btn" id="asciiCopy" style="margin-top:6px;">&gt; COPY_ART</button>
+      </div>
+    </section>
+
+    <!-- ══════ QR GENERATOR ══════ -->
+    <section class="ops-section" id="qrSection">
+      <div class="ops-header" id="qrToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">QR_FORGE</span>
+        <span class="ops-tag">// generate QR codes</span>
+        <span class="ops-arrow" id="qrArrow">▸</span>
+      </div>
+      <div class="ops-body" id="qrBody" style="display:none;">
+        <input type="text" id="qrInput" class="forge-field" placeholder="Text or URL to encode..." maxlength="200"/>
+        <button class="ops-btn" id="qrGenerate" style="margin-top:6px;">&gt; GENERATE_QR</button>
+        <div class="qr-display" id="qrDisplay" style="margin-top:10px;text-align:center;"></div>
+      </div>
+    </section>
+
+    <!-- ══════ AGENT BADGE ══════ -->
+    <section class="ops-section" id="badgeSection">
+      <div class="ops-header" id="badgeToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">AGENT_BADGE</span>
+        <span class="ops-tag">// generate ID card</span>
+        <span class="ops-arrow" id="badgeArrow">▸</span>
+      </div>
+      <div class="ops-body" id="badgeBody" style="display:none;">
+        <button class="ops-btn" id="badgeGenerate">&gt; GENERATE_BADGE</button>
+        <div class="badge-display" id="badgeDisplay" style="margin-top:10px;"></div>
+      </div>
+    </section>
+
+    <!-- ══════ SHARE EXPLOIT ══════ -->
+    <section class="ops-section" id="shareSection">
+      <div class="ops-header" id="shareToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">SHARE_EXPLOIT</span>
+        <span class="ops-tag">// copy prank page</span>
+        <span class="ops-arrow" id="shareArrow">▸</span>
+      </div>
+      <div class="ops-body" id="shareBody" style="display:none;">
+        <div class="exploit-grid" id="shareGrid"></div>
+      </div>
+    </section>
+
+    <!-- ══════ ACHIEVEMENTS ══════ -->
+    <section class="ops-section" id="achieveSection">
+      <div class="ops-header" id="achieveToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">ACHIEVEMENTS</span>
+        <span class="ops-tag">// your badges</span>
+        <span class="ops-arrow" id="achieveArrow">▸</span>
+      </div>
+      <div class="ops-body" id="achieveBody" style="display:none;">
+        <div class="achieve-grid" id="achieveGrid"></div>
+      </div>
+    </section>
+
+    <!-- ══════ VOICE DISGUISER ══════ -->
+    <section class="ops-section" id="voiceSection">
+      <div class="ops-header" id="voiceToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">VOICE_DISGUISE</span>
+        <span class="ops-tag">// real-time voice changer</span>
+        <span class="ops-arrow" id="voiceArrow">▸</span>
+      </div>
+      <div class="ops-body" id="voiceBody" style="display:none;">
+        <div class="sidebar-buttons" style="margin-bottom:8px;">
+          <button class="mode-btn" data-voice="robot">ROBOT</button>
+          <button class="mode-btn" data-voice="alien">ALIEN</button>
+          <button class="mode-btn" data-voice="deep">DEEP</button>
+          <button class="mode-btn" data-voice="chipmunk">CHIPMUNK</button>
+        </div>
+        <button class="ops-btn" id="voiceStart">&gt; START_MIC</button>
+        <button class="ops-btn" id="voiceStop" style="display:none;margin-top:4px;">&gt; STOP_MIC</button>
+        <div class="ops-label" id="voiceStatus" style="margin-top:8px;">MIC INACTIVE</div>
+      </div>
+    </section>
+
+    <!-- ══════ WIFI NAME GENERATOR ══════ -->
+    <section class="ops-section" id="wifiSection">
+      <div class="ops-header" id="wifiToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">WIFI_SPOOF</span>
+        <span class="ops-tag">// scary network names</span>
+        <span class="ops-arrow" id="wifiArrow">▸</span>
+      </div>
+      <div class="ops-body" id="wifiBody" style="display:none;">
+        <div class="network-display" id="wifiDisplay"><div class="ops-label">CLICK TO GENERATE</div></div>
+        <button class="ops-btn" id="wifiGenerate">&gt; GENERATE_NAMES</button>
+      </div>
+    </section>
+
+    <!-- ══════ SOCIAL ENGINEER TRAINER ══════ -->
+    <section class="ops-section" id="phishSection">
+      <div class="ops-header" id="phishToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">PHISH_DETECT</span>
+        <span class="ops-tag">// spot the scam</span>
+        <span class="ops-arrow" id="phishArrow">▸</span>
+      </div>
+      <div class="ops-body" id="phishBody" style="display:none;">
+        <div class="phish-card" id="phishCard"></div>
+        <div class="sidebar-buttons" style="margin-top:8px;">
+          <button class="mode-btn" id="phishLegit">✓ LEGIT</button>
+          <button class="mode-btn" id="phishScam">✗ SCAM</button>
+        </div>
+        <div class="phish-result" id="phishResult"></div>
+        <div class="phish-score" id="phishScore">Score: 0/0</div>
+      </div>
+    </section>
+
+    <!-- ══════ MULTI-AGENT CHAT ══════ -->
+    <section class="ops-section" id="chatSection">
+      <div class="ops-header" id="chatToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">AGENT_CHAT</span>
+        <span class="ops-tag">// encrypted comms</span>
+        <span class="ops-arrow" id="chatArrow">▸</span>
+      </div>
+      <div class="ops-body" id="chatBody" style="display:none;">
+        <div class="chat-window" id="chatWindow"></div>
+        <div class="terminal-input-row" style="margin-top:6px;">
+          <span class="terminal-ps1">[YOU]</span>
+          <input type="text" id="chatInput" class="terminal-field" placeholder="Type message..."/>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════ DEAD DROP ══════ -->
+    <section class="ops-section" id="deadDropSection">
+      <div class="ops-header" id="deadDropToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">DEAD_DROP</span>
+        <span class="ops-tag">// self-decoding URL</span>
+        <span class="ops-arrow" id="deadDropArrow">▸</span>
+      </div>
+      <div class="ops-body" id="deadDropBody" style="display:none;">
+        <input type="text" id="deadDropInput" class="forge-field" placeholder="Secret message for the dead drop..." maxlength="200"/>
+        <button class="ops-btn" id="deadDropCreate" style="margin-top:6px;">&gt; CREATE_DROP</button>
+        <div class="crypto-output" id="deadDropOutput" style="margin-top:8px;font-size:10px;"></div>
+      </div>
+    </section>
+
+    <!-- ══════ WANTED POSTER ══════ -->
+    <section class="ops-section" id="wantedSection">
+      <div class="ops-header" id="wantedToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">WANTED_POSTER</span>
+        <span class="ops-tag">// create wanted poster</span>
+        <span class="ops-arrow" id="wantedArrow">▸</span>
+      </div>
+      <div class="ops-body" id="wantedBody" style="display:none;">
+        <input type="text" id="wantedName" class="forge-field" placeholder="Target name..." maxlength="30" style="margin-bottom:6px;"/>
+        <input type="text" id="wantedCrime" class="forge-field" placeholder="Crime: e.g. 'Excessive homework'" maxlength="60"/>
+        <button class="ops-btn" id="wantedGenerate" style="margin-top:6px;">&gt; GENERATE_POSTER</button>
+        <div id="wantedDisplay" style="margin-top:10px;"></div>
+      </div>
+    </section>
+
+    <!-- ══════ SELF-DESTRUCT ══════ -->
+    <section class="ops-section" id="selfDestructSection">
+      <div class="ops-header" id="selfDestructToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">SELF_DESTRUCT</span>
+        <span class="ops-tag">// mission impossible message</span>
+        <span class="ops-arrow" id="selfDestructArrow">▸</span>
+      </div>
+      <div class="ops-body" id="selfDestructBody" style="display:none;">
+        <textarea id="selfDestructInput" class="encryptor-textarea" rows="3" placeholder="This message will self-destruct..."></textarea>
+        <div class="sidebar-buttons" style="margin-bottom:6px;">
+          <button class="mode-btn active" data-timer="5">5s</button>
+          <button class="mode-btn" data-timer="10">10s</button>
+          <button class="mode-btn" data-timer="30">30s</button>
+        </div>
+        <button class="ops-btn" id="selfDestructLaunch">&gt; ARM_MESSAGE</button>
+      </div>
+    </section>
+
+    <!-- ══════ FINGERPRINT SCANNER ══════ -->
+    <section class="ops-section" id="fpSection">
+      <div class="ops-header" id="fpToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">BIO_SCAN</span>
+        <span class="ops-tag">// fingerprint scanner</span>
+        <span class="ops-arrow" id="fpArrow">▸</span>
+      </div>
+      <div class="ops-body" id="fpBody" style="display:none;">
+        <div class="fp-pad" id="fpPad">
+          <div class="fp-icon">👆</div>
+          <div class="fp-label">PRESS &amp; HOLD</div>
+          <div class="fp-ring" id="fpRing"></div>
+          <div class="fp-progress" id="fpProgress"></div>
+        </div>
+        <div class="fp-result" id="fpResult"></div>
+      </div>
+    </section>
+
+    <!-- ══════ SATELLITE VIEW ══════ -->
+    <section class="ops-section" id="satSection">
+      <div class="ops-header" id="satToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">SAT_VIEW</span>
+        <span class="ops-tag">// satellite target lock</span>
+        <span class="ops-arrow" id="satArrow">▸</span>
+      </div>
+      <div class="ops-body" id="satBody" style="display:none;">
+        <input type="text" id="satTarget" class="forge-field" placeholder="Target name or location..." maxlength="40"/>
+        <button class="ops-btn" id="satLaunch" style="margin-top:6px;">&gt; LOCK_TARGET</button>
+      </div>
+    </section>
+
+    <!-- ══════ DARK WEB SIM ══════ -->
+    <section class="ops-section" id="darkwebSection">
+      <div class="ops-header" id="darkwebToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">DARK_WEB</span>
+        <span class="ops-tag">// .onion browser sim</span>
+        <span class="ops-arrow" id="darkwebArrow">▸</span>
+      </div>
+      <div class="ops-body" id="darkwebBody" style="display:none;">
+        <div class="dw-address-bar">
+          <span class="dw-lock">🔒</span>
+          <input type="text" id="dwUrl" class="terminal-field" value="http://an0nym0us.onion" style="font-size:11px;"/>
+          <button class="mode-btn" id="dwGo" style="padding:2px 8px!important;">GO</button>
+        </div>
+        <div class="dw-browser" id="dwBrowser"><div class="ops-label">Enter a .onion address and click GO</div></div>
+      </div>
+    </section>
+
+    <!-- ══════ FAKE DESKTOP ══════ -->
+    <section class="ops-section" id="fakeDesktopSection">
+      <div class="ops-header" id="fakeDesktopToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">FAKE_DESKTOP</span>
+        <span class="ops-tag">// clone desktop prank</span>
+        <span class="ops-arrow" id="fakeDesktopArrow">▸</span>
+      </div>
+      <div class="ops-body" id="fakeDesktopBody" style="display:none;">
+        <div class="sidebar-buttons">
+          <button class="mode-btn" id="fakeWin">WINDOWS</button>
+          <button class="mode-btn" id="fakeMac">MACOS</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════ HACK THE PLANET ══════ -->
+    <section class="ops-section" id="planetSection">
+      <div class="ops-header" id="planetToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">HACK_THE_PLANET</span>
+        <span class="ops-tag">// live attack map</span>
+        <span class="ops-arrow" id="planetArrow">▸</span>
+      </div>
+      <div class="ops-body" id="planetBody" style="display:none;">
+        <canvas id="planetCanvas" width="680" height="340" style="width:100%;border:1px solid var(--border);background:#000;cursor:crosshair;"></canvas>
+        <div class="ops-label" id="planetStats" style="margin-top:6px;">ATTACKS: 0 | NODES: 0</div>
+      </div>
+    </section>
+
+    <!-- ══════ SECURITY CAM GRID ══════ -->
+    <section class="ops-section" id="cctvSection">
+      <div class="ops-header" id="cctvToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">CCTV_MONITOR</span>
+        <span class="ops-tag">// surveillance grid</span>
+        <span class="ops-arrow" id="cctvArrow">▸</span>
+      </div>
+      <div class="ops-body" id="cctvBody" style="display:none;">
+        <button class="ops-btn" id="cctvLaunch">&gt; OPEN_FEEDS</button>
+      </div>
+    </section>
+
+    <!-- ══════ DRONE CONTROL ══════ -->
+    <section class="ops-section" id="droneSection">
+      <div class="ops-header" id="droneToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">DRONE_CTRL</span>
+        <span class="ops-tag">// UAV flight simulator</span>
+        <span class="ops-arrow" id="droneArrow">▸</span>
+      </div>
+      <div class="ops-body" id="droneBody" style="display:none;">
+        <button class="ops-btn" id="droneLaunch">&gt; LAUNCH_DRONE</button>
+      </div>
+    </section>
+
+    <!-- ══════ FACE GLITCH ══════ -->
+    <section class="ops-section" id="faceSection">
+      <div class="ops-header" id="faceToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">FACE_GLITCH</span>
+        <span class="ops-tag">// webcam mask overlay</span>
+        <span class="ops-arrow" id="faceArrow">▸</span>
+      </div>
+      <div class="ops-body" id="faceBody" style="display:none;">
+        <button class="ops-btn" id="faceLaunch">&gt; ACTIVATE_CAM</button>
+      </div>
+    </section>
+
+    <!-- ══════ DEAD MAN'S SWITCH ══════ -->
+    <section class="ops-section" id="dmsSection">
+      <div class="ops-header" id="dmsToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">DEAD_SWITCH</span>
+        <span class="ops-tag">// auto-deploy if idle</span>
+        <span class="ops-arrow" id="dmsArrow">▸</span>
+      </div>
+      <div class="ops-body" id="dmsBody" style="display:none;">
+        <div class="ops-label" id="dmsStatus">SWITCH DISARMED</div>
+        <div class="countdown-bar" style="margin:8px 0;"><div class="countdown-fill" id="dmsFill" style="width:100%;background:var(--green);"></div></div>
+        <div class="sidebar-buttons">
+          <button class="mode-btn" id="dmsArm">ARM</button>
+          <button class="mode-btn" id="dmsDisarm">DISARM</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════ PRANK BATTLE ══════ -->
+    <section class="ops-section" id="battleSection">
+      <div class="ops-header" id="battleToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">PRANK_BATTLE</span>
+        <span class="ops-tag">// 2-player showdown</span>
+        <span class="ops-arrow" id="battleArrow">▸</span>
+      </div>
+      <div class="ops-body" id="battleBody" style="display:none;">
+        <div class="battle-arena" id="battleArena">
+          <div class="battle-player" id="bp1"><div class="battle-label">PLAYER 1</div><div class="battle-pick" id="bp1Pick">?</div></div>
+          <div class="battle-vs">VS</div>
+          <div class="battle-player" id="bp2"><div class="battle-label">PLAYER 2</div><div class="battle-pick" id="bp2Pick">?</div></div>
+        </div>
+        <button class="ops-btn" id="battleStart">&gt; RANDOM_BATTLE</button>
+        <div id="battleResult" style="margin-top:8px;text-align:center;"></div>
+      </div>
+    </section>
+
+    <!-- ══════ BOOT VIRUS ══════ -->
+    <section class="ops-section" id="biosSection">
+      <div class="ops-header" id="biosToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">BOOT_VIRUS</span>
+        <span class="ops-tag">// fake BIOS failure</span>
+        <span class="ops-arrow" id="biosArrow">▸</span>
+      </div>
+      <div class="ops-body" id="biosBody" style="display:none;">
+        <button class="ops-btn" id="biosLaunch">&gt; DEPLOY_BOOT_VIRUS</button>
+      </div>
+    </section>
+
+    <!-- ══════ RANSOMWARE ══════ -->
+    <section class="ops-section" id="ransomSection">
+      <div class="ops-header" id="ransomToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">RANSOMWARE</span>
+        <span class="ops-tag">// fake file encryption</span>
+        <span class="ops-arrow" id="ransomArrow">▸</span>
+      </div>
+      <div class="ops-body" id="ransomBody" style="display:none;">
+        <button class="ops-btn" id="ransomLaunch">&gt; DEPLOY_RANSOMWARE</button>
+      </div>
+    </section>
+
+    <!-- ══════ PHONE CRACK ══════ -->
+    <section class="ops-section" id="crackSection">
+      <div class="ops-header" id="crackToggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">SCREEN_CRACK</span>
+        <span class="ops-tag">// cracked screen overlay</span>
+        <span class="ops-arrow" id="crackArrow">▸</span>
+      </div>
+      <div class="ops-body" id="crackBody" style="display:none;">
+        <button class="ops-btn" id="crackLaunch">&gt; CRACK_SCREEN</button>
+      </div>
+    </section>
+
+    <!-- ══════ SYSTEM32 DELETE ══════ -->
+    <section class="ops-section" id="sys32Section">
+      <div class="ops-header" id="sys32Toggle">
+        <span class="prompt">&gt;</span>
+        <span class="ops-title">SYS32_DELETE</span>
+        <span class="ops-tag">// fake system wipe</span>
+        <span class="ops-arrow" id="sys32Arrow">▸</span>
+      </div>
+      <div class="ops-body" id="sys32Body" style="display:none;">
+        <button class="ops-btn" id="sys32Launch">&gt; DELETE_SYSTEM32</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-mask" id="footerMask"></div>
+    <div class="footer-text">
+      <span class="typed-footer"><span data-i18n="footer_text">We are Anony... we never log off.</span></span>
+      <span class="version">v0.1</span>
+    </div>
+  </footer>
+
+</div>
+
+<!-- ══════ SATELLITE OVERLAY ══════ -->
+<div class="sat-overlay" id="satOverlay" style="display:none;"></div>
+
+<!-- ══════ SELF-DESTRUCT OVERLAY ══════ -->
+<div class="sd-overlay" id="sdOverlay" style="display:none;"></div>
+
+<!-- ══════ FAKE DESKTOP OVERLAY ══════ -->
+<div class="exploit-overlay" id="fakeDesktopOverlay" style="display:none;">
+  <div class="exploit-screen-content" id="fakeDesktopContent"></div>
+  <div class="exploit-exit">PRESS ESC OR TAP TO EXIT</div>
+</div>
+
+<!-- ══════ NEWS TICKER ══════ -->
+<div class="news-ticker" id="newsTicker">
+  <div class="ticker-content" id="tickerContent"></div>
+</div>
+
+<!-- ══════ MATRIX RAIN BACKGROUND ══════ -->
+<canvas id="bgRainCanvas" class="bg-rain"></canvas>
+
+<!-- ══════ COUNTDOWN BOMB ══════ -->
+<div class="countdown-overlay" id="countdownOverlay" style="display:none;">
+  <div class="countdown-content">
+    <div class="countdown-title">⚠ PAYLOAD DEPLOYING ⚠</div>
+    <div class="countdown-timer" id="countdownTimer">10</div>
+    <div class="countdown-bar"><div class="countdown-fill" id="countdownFill"></div></div>
+    <div class="countdown-msg">SYSTEM OVERRIDE IN PROGRESS</div>
+  </div>
+</div>
+
+<!-- ══════ WEBCAM FAKE HACK ══════ -->
+<div class="webcam-overlay" id="webcamOverlay" style="display:none;">
+  <div class="webcam-content">
+    <div class="webcam-header">
+      <span class="webcam-rec">● REC</span>
+      <span class="webcam-label">CAMERA_01 — ACCESSING...</span>
+    </div>
+    <div class="webcam-static" id="webcamStatic"></div>
+    <div class="webcam-target">
+      <div class="webcam-crosshair"></div>
+    </div>
+    <div class="webcam-info">
+      <span>TARGET IDENTIFIED</span>
+      <span>STREAM: ACTIVE</span>
+      <span>IP: 192.168.1.███</span>
+    </div>
+    <div class="webcam-joke">😄 RELAX — This is a prank. No camera was accessed!</div>
+  </div>
+</div>
+
+<!-- ══════ MANIFESTO BROADCAST ══════ -->
+<div class="manifesto-overlay" id="manifestoOverlay" style="display:none;">
+  <div class="manifesto-broadcast" id="manifestoBroadcast"></div>
+</div>
+
+<!-- ══════ EXPLOIT FULLSCREEN ══════ -->
+<div class="exploit-overlay" id="exploitOverlay" style="display:none;">
+  <div class="exploit-screen-content" id="exploitContent"></div>
+  <div class="exploit-exit">PRESS ESC OR TAP TO EXIT</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
